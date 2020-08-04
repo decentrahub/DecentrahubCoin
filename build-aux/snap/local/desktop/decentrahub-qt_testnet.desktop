@@ -1,0 +1,15 @@
+# http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-1.0.html
+
+[Desktop Entry]
+Encoding=UTF-8
+Name=Decentrahub Coin
+Comment=Decentrahub Coin QT test network
+GenericName=Decentrahub Digital Currency QT client testnet network
+Exec=decentrahub-core.qt-testnet %u
+Terminal=false
+Type=Application
+Icon=${SNAP}/share/pixmaps/decentrahub_testnet.png
+MimeType=x-scheme-handler/dcntr;
+Categories=X-Office;X-Finance;
+Keywords=internet;decentrahub;zdcntr;tdcntr;core;wallet;qt;testnet;snap;launchpad;crypto;digital;currency;coin;token;zerocoin;
+Version=1.0

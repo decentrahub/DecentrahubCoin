@@ -1,0 +1,715 @@
+# Copyright (c) 2013-2016 The Bitcoin Core developers
+# Distributed under the MIT software license, see the accompanying
+# file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
+bin_PROGRAMS += qt/decentrahub-qt
+EXTRA_LIBRARIES += qt/libbitcoinqt.a
+
+# decentrahub qt core #
+include Makefile.qt_locale.include
+
+QT_FORMS_UI = \
+  qt/forms/addressbookpage.ui \
+  qt/forms/askpassphrasedialog.ui \
+  qt/forms/coincontroldialog.ui \
+  qt/forms/editaddressdialog.ui \
+  qt/forms/helpmessagedialog.ui \
+  qt/forms/intro.ui \
+  qt/forms/openuridialog.ui \
+  qt/forms/optionsdialog.ui \
+  qt/forms/rpcconsole.ui \
+  qt/decentrahub/forms/loadingdialog.ui \
+  qt/decentrahub/forms/snackbar.ui \
+  qt/decentrahub/forms/navmenuwidget.ui \
+  qt/decentrahub/forms/lockunlock.ui \
+  qt/decentrahub/forms/expandablebutton.ui \
+  qt/decentrahub/forms/receivedialog.ui \
+  qt/decentrahub/forms/topbar.ui \
+  qt/decentrahub/forms/txrow.ui \
+  qt/decentrahub/forms/dashboardwidget.ui \
+  qt/decentrahub/forms/addresslabelrow.ui \
+  qt/decentrahub/forms/contactdropdownrow.ui \
+  qt/decentrahub/forms/mninfodialog.ui \
+  qt/decentrahub/forms/optionbutton.ui \
+  qt/decentrahub/forms/masternodewizarddialog.ui \
+  qt/decentrahub/forms/mnrow.ui \
+  qt/decentrahub/forms/masternodeswidget.ui \
+  qt/decentrahub/forms/myaddressrow.ui \
+  qt/decentrahub/forms/csrow.ui \
+  qt/decentrahub/forms/sendchangeaddressdialog.ui \
+  qt/decentrahub/forms/sendconfirmdialog.ui \
+  qt/decentrahub/forms/sendcustomfeedialog.ui \
+  qt/decentrahub/forms/sendchangeaddressdialog.ui \
+  qt/decentrahub/forms/sendmultirow.ui \
+  qt/decentrahub/forms/send.ui \
+  qt/decentrahub/forms/addnewaddressdialog.ui \
+  qt/decentrahub/forms/addnewcontactdialog.ui \
+  qt/decentrahub/forms/requestdialog.ui \
+  qt/decentrahub/forms/receivewidget.ui \
+  qt/decentrahub/forms/tooltipmenu.ui \
+  qt/decentrahub/forms/addresseswidget.ui \
+  qt/decentrahub/forms/defaultdialog.ui \
+  qt/decentrahub/forms/coldstakingwidget.ui \
+  qt/decentrahub/settings/forms/settingsbackupwallet.ui \
+  qt/decentrahub/settings/forms/settingsexportcsv.ui \
+  qt/decentrahub/settings/forms/settingsbittoolwidget.ui \
+  qt/decentrahub/settings/forms/settingsconsolewidget.ui \
+  qt/decentrahub/settings/forms/settingsdisplayoptionswidget.ui \
+  qt/decentrahub/settings/forms/settingsfaqwidget.ui \
+  qt/decentrahub/settings/forms/settingsinformationwidget.ui \
+  qt/decentrahub/settings/forms/settingsmainoptionswidget.ui \
+  qt/decentrahub/settings/forms/settingsmultisenddialog.ui \
+  qt/decentrahub/settings/forms/settingsmultisendwidget.ui \
+  qt/decentrahub/settings/forms/settingssignmessagewidgets.ui \
+  qt/decentrahub/settings/forms/settingswalletoptionswidget.ui \
+  qt/decentrahub/settings/forms/settingswalletrepairwidget.ui \
+  qt/decentrahub/settings/forms/settingswidget.ui \
+  qt/decentrahub/forms/welcomecontentwidget.ui \
+  qt/decentrahub/forms/splash.ui
+
+QT_MOC_CPP = \
+  qt/moc_addressbookpage.cpp \
+  qt/moc_addresstablemodel.cpp \
+  qt/moc_askpassphrasedialog.cpp \
+  qt/moc_bantablemodel.cpp \
+  qt/moc_bitcoinaddressvalidator.cpp \
+  qt/decentrahub/moc_decentrahubgui.cpp \
+  qt/moc_bitcoinunits.cpp \
+  qt/moc_clientmodel.cpp \
+  qt/moc_coincontroldialog.cpp \
+  qt/moc_coincontroltreewidget.cpp \
+  qt/moc_csvmodelwriter.cpp \
+  qt/moc_editaddressdialog.cpp \
+  qt/moc_guiutil.cpp \
+  qt/moc_intro.cpp \
+  qt/moc_macdockiconhandler.cpp \
+  qt/moc_macnotificationhandler.cpp \
+  qt/moc_notificator.cpp \
+  qt/moc_openuridialog.cpp \
+  qt/moc_optionsdialog.cpp \
+  qt/moc_optionsmodel.cpp \
+  qt/moc_peertablemodel.cpp \
+  qt/moc_paymentserver.cpp \
+  qt/moc_qvalidatedlineedit.cpp \
+  qt/moc_qvaluecombobox.cpp \
+  qt/moc_recentrequeststablemodel.cpp \
+  qt/moc_rpcconsole.cpp \
+  qt/moc_trafficgraphwidget.cpp \
+  qt/moc_transactiondesc.cpp \
+  qt/moc_transactionfilterproxy.cpp \
+  qt/moc_transactiontablemodel.cpp \
+  qt/moc_utilitydialog.cpp \
+  qt/moc_walletmodel.cpp \
+  qt/decentrahub/moc_loadingdialog.cpp \
+  qt/decentrahub/moc_pwidget.cpp \
+  qt/decentrahub/moc_focuseddialog.cpp \
+  qt/decentrahub/moc_snackbar.cpp \
+  qt/decentrahub/moc_navmenuwidget.cpp \
+  qt/decentrahub/moc_lockunlock.cpp \
+  qt/decentrahub/moc_expandablebutton.cpp \
+  qt/decentrahub/moc_furabstractlistitemdelegate.cpp \
+  qt/decentrahub/moc_receivedialog.cpp \
+  qt/decentrahub/moc_pfborderimage.cpp \
+  qt/decentrahub/moc_topbar.cpp \
+  qt/decentrahub/moc_txrow.cpp \
+  qt/decentrahub/moc_dashboardwidget.cpp \
+  qt/decentrahub/moc_addresslabelrow.cpp \
+  qt/decentrahub/moc_contactdropdownrow.cpp \
+  qt/decentrahub/moc_mninfodialog.cpp \
+  qt/decentrahub/moc_optionbutton.cpp \
+  qt/decentrahub/moc_coldstakingmodel.cpp \
+  qt/decentrahub/moc_mnmodel.cpp \
+  qt/decentrahub/moc_masternodewizarddialog.cpp \
+  qt/decentrahub/moc_mnrow.cpp \
+  qt/decentrahub/moc_masternodeswidget.cpp \
+  qt/decentrahub/moc_myaddressrow.cpp \
+  qt/decentrahub/moc_csrow.cpp \
+  qt/decentrahub/moc_contactsdropdown.cpp \
+  qt/decentrahub/moc_sendchangeaddressdialog.cpp \
+  qt/decentrahub/moc_sendconfirmdialog.cpp \
+  qt/decentrahub/moc_sendcustomfeedialog.cpp \
+  qt/decentrahub/moc_sendchangeaddressdialog.cpp \
+  qt/decentrahub/moc_sendmultirow.cpp \
+  qt/decentrahub/moc_send.cpp \
+  qt/decentrahub/moc_addnewaddressdialog.cpp \
+  qt/decentrahub/moc_addnewcontactdialog.cpp \
+  qt/decentrahub/moc_requestdialog.cpp \
+  qt/decentrahub/moc_receivewidget.cpp \
+  qt/decentrahub/moc_tooltipmenu.cpp \
+  qt/decentrahub/moc_addresseswidget.cpp \
+  qt/decentrahub/moc_defaultdialog.cpp \
+  qt/decentrahub/moc_coldstakingwidget.cpp \
+  qt/decentrahub/settings/moc_settingsbackupwallet.cpp \
+  qt/decentrahub/settings/moc_settingsexportcsv.cpp \
+  qt/decentrahub/settings/moc_settingsbittoolwidget.cpp \
+  qt/decentrahub/settings/moc_settingsconsolewidget.cpp \
+  qt/decentrahub/settings/moc_settingsdisplayoptionswidget.cpp \
+  qt/decentrahub/settings/moc_settingsfaqwidget.cpp \
+  qt/decentrahub/settings/moc_settingsinformationwidget.cpp \
+  qt/decentrahub/settings/moc_settingsmainoptionswidget.cpp \
+  qt/decentrahub/settings/moc_settingsmultisenddialog.cpp \
+  qt/decentrahub/settings/moc_settingsmultisendwidget.cpp \
+  qt/decentrahub/settings/moc_settingssignmessagewidgets.cpp \
+  qt/decentrahub/settings/moc_settingswalletoptionswidget.cpp \
+  qt/decentrahub/settings/moc_settingswalletrepairwidget.cpp \
+  qt/decentrahub/settings/moc_settingswidget.cpp \
+  qt/decentrahub/moc_welcomecontentwidget.cpp \
+  qt/decentrahub/moc_splash.cpp
+
+BITCOIN_MM = \
+  qt/macdockiconhandler.mm \
+  qt/macnotificationhandler.mm
+
+QT_MOC = \
+  qt/decentrahub.moc \
+  qt/intro.moc \
+  qt/rpcconsole.moc \
+  qt/decentrahub/settings/moc_settingsconsolewidget.cpp
+
+QT_QRC_CPP = qt/qrc_decentrahub.cpp
+QT_QRC = qt/decentrahub.qrc
+QT_QRC_LOCALE_CPP = qt/qrc_decentrahub_locale.cpp
+QT_QRC_LOCALE = qt/decentrahub_locale.qrc
+
+PROTOBUF_CC = qt/paymentrequest.pb.cc
+PROTOBUF_H = qt/paymentrequest.pb.h
+PROTOBUF_PROTO = qt/paymentrequest.proto
+
+BITCOIN_QT_H = \
+  qt/addressbookpage.h \
+  qt/addresstablemodel.h \
+  qt/askpassphrasedialog.h \
+  qt/bantablemodel.h \
+  qt/bitcoinaddressvalidator.h \
+  qt/decentrahub/decentrahubgui.h \
+  qt/bitcoinunits.h \
+  qt/clientmodel.h \
+  qt/coincontroldialog.h \
+  qt/coincontroltreewidget.h \
+  qt/csvmodelwriter.h \
+  qt/editaddressdialog.h \
+  qt/guiconstants.h \
+  qt/guiutil.h \
+  qt/intro.h \
+  qt/macdockiconhandler.h \
+  qt/macnotificationhandler.h \
+  qt/networkstyle.h \
+  qt/notificator.h \
+  qt/openuridialog.h \
+  qt/optionsdialog.h \
+  qt/optionsmodel.h \
+  qt/paymentrequestplus.h \
+  qt/paymentserver.h \
+  qt/peertablemodel.h \
+  qt/platformstyle.h \
+  qt/qvalidatedlineedit.h \
+  qt/qvaluecombobox.h \
+  qt/recentrequeststablemodel.h \
+  qt/rpcconsole.h \
+  qt/trafficgraphwidget.h \
+  qt/transactiondesc.h \
+  qt/transactionfilterproxy.h \
+  qt/transactionrecord.h \
+  qt/transactiontablemodel.h \
+  qt/utilitydialog.h \
+  qt/walletmodel.h \
+  qt/walletmodeltransaction.h \
+  qt/decentrahub/prunnable.h \
+  qt/decentrahub/pfborderimage.h \
+  qt/decentrahub/loadingdialog.h \
+  qt/winshutdownmonitor.h \
+  qt/decentrahub/pwidget.h \
+  qt/decentrahub/focuseddialog.h \
+  qt/decentrahub/guitransactionsutils.h \
+  qt/decentrahub/snackbar.h \
+  qt/decentrahub/navmenuwidget.h \
+  qt/decentrahub/lockunlock.h \
+  qt/decentrahub/receivedialog.h \
+  qt/decentrahub/furlistrow.h \
+  qt/decentrahub/furabstractlistitemdelegate.h \
+  qt/decentrahub/txviewholder.h \
+  qt/decentrahub/qtutils.h \
+  qt/decentrahub/expandablebutton.h \
+  qt/decentrahub/topbar.h \
+  qt/decentrahub/txrow.h \
+  qt/decentrahub/addressholder.h \
+  qt/decentrahub/addressfilterproxymodel.h \
+  qt/decentrahub/dashboardwidget.h \
+  qt/decentrahub/addresslabelrow.h \
+  qt/decentrahub/contactdropdownrow.h \
+  qt/decentrahub/mninfodialog.h \
+  qt/decentrahub/optionbutton.h \
+  qt/decentrahub/coldstakingmodel.h \
+  qt/decentrahub/mnmodel.h \
+  qt/decentrahub/masternodewizarddialog.h \
+  qt/decentrahub/mnrow.h \
+  qt/decentrahub/masternodeswidget.h \
+  qt/decentrahub/myaddressrow.h \
+  qt/decentrahub/csrow.h \
+  qt/decentrahub/contactsdropdown.h \
+  qt/decentrahub/sendchangeaddressdialog.h \
+  qt/decentrahub/sendconfirmdialog.h \
+  qt/decentrahub/sendcustomfeedialog.h \
+  qt/decentrahub/sendchangeaddressdialog.h \
+  qt/decentrahub/sendmultirow.h \
+  qt/decentrahub/send.h \
+  qt/decentrahub/addnewaddressdialog.h \
+  qt/decentrahub/addnewcontactdialog.h \
+  qt/decentrahub/requestdialog.h \
+  qt/decentrahub/receivewidget.h \
+  qt/decentrahub/tooltipmenu.h \
+  qt/decentrahub/addresseswidget.h \
+  qt/decentrahub/defaultdialog.h \
+  qt/decentrahub/coldstakingwidget.h \
+  qt/decentrahub/settings/settingsbackupwallet.h \
+  qt/decentrahub/settings/settingsexportcsv.h \
+  qt/decentrahub/settings/settingsbittoolwidget.h \
+  qt/decentrahub/settings/settingsconsolewidget.h \
+  qt/decentrahub/settings/settingsdisplayoptionswidget.h \
+  qt/decentrahub/settings/settingsfaqwidget.h \
+  qt/decentrahub/settings/settingsinformationwidget.h \
+  qt/decentrahub/settings/settingsmainoptionswidget.h \
+  qt/decentrahub/settings/settingsmultisenddialog.h \
+  qt/decentrahub/settings/settingsmultisendwidget.h \
+  qt/decentrahub/settings/settingssignmessagewidgets.h \
+  qt/decentrahub/settings/settingswalletoptionswidget.h \
+  qt/decentrahub/settings/settingswalletrepairwidget.h \
+  qt/decentrahub/settings/settingswidget.h \
+  qt/decentrahub/welcomecontentwidget.h \
+  qt/decentrahub/splash.h
+
+RES_ICONS = \
+  qt/res/icons/bitcoin.ico \
+  qt/res/icons/bitcoin.png \
+  qt/res/icons/bitcoin_testnet.ico \
+  qt/res/icons/bitcoin_testnet.png \
+  qt/res/icons/bitcoin_regtest.png \
+  qt/res/icons/lock_closed.png \
+  qt/res/icons/lock_open.png \
+  qt/res/icons/ic-transaction-received.png \
+  qt/res/icons/ic-transaction-mint.png \
+  qt/res/icons/ic-transaction-sent.png \
+  qt/res/icons/ic-transaction-staked.png \
+  qt/decentrahub/res/img/bg-dashboard-banner.png \
+  qt/decentrahub/res/img/bg-multi-number-dark.png \
+  qt/decentrahub/res/img/ic-check-locked.png \
+  qt/decentrahub/res/img/ic-nav-address.png \
+  qt/decentrahub/res/img/ic-update.png \
+  qt/decentrahub/res/img/bg-multi-number.png \
+  qt/decentrahub/res/img/ic-check-mint-off.png \
+  qt/decentrahub/res/img/ic-nav-cold-staking.png \
+  qt/decentrahub/res/img/ic-nav-cold-staking-active.png \
+  qt/decentrahub/res/img/ic-nav-dashboard-active.png \
+  qt/decentrahub/res/img/ic-wallet-status-locked.png \
+  qt/decentrahub/res/img/bg-splash.png \
+  qt/decentrahub/res/img/bg-splash.png \
+  qt/decentrahub/res/img/ic-check-mint.png \
+  qt/decentrahub/res/img/ic-nav-dashboard-hover.png \
+  qt/decentrahub/res/img/ic-wallet-status-staking.png \
+  qt/decentrahub/res/img/ic-check-peers-off.png \
+  qt/decentrahub/res/img/ic-nav-dashboard.png \
+  qt/decentrahub/res/img/ic-wallet-status-unlocked.png \
+  qt/decentrahub/res/img/ic-check-peers.png \
+  qt/decentrahub/res/img/ic-nav-master-active.png \
+  qt/decentrahub/res/img/ic-watch-password-white.png \
+  qt/decentrahub/res/img/bg-welcome-container.jpg \
+  qt/decentrahub/res/img/bg-welcome-container.png \
+  qt/decentrahub/res/img/bg-welcome-container.png \
+  qt/decentrahub/res/img/bg-welcome-container@2x.png \
+  qt/decentrahub/res/img/bg-welcome-container@3x.png \
+  qt/decentrahub/res/img/ic-check-staking-off.png \
+  qt/decentrahub/res/img/ic-nav-master-hover.png \
+  qt/decentrahub/res/img/ic-watch-password.png \
+  qt/decentrahub/res/img/bg-welcome.jpg \
+  qt/decentrahub/res/img/bg-welcome.png \
+  qt/decentrahub/res/img/bg-welcome@2x.jpg \
+  qt/decentrahub/res/img/bg-welcome@3x.jpg \
+  qt/decentrahub/res/img/bg-welcome.png \
+  qt/decentrahub/res/img/ic-check-staking.png \
+  qt/decentrahub/res/img/ic-nav-master.png \
+  qt/decentrahub/res/img/img-dashboard-banner.jpg \
+  qt/decentrahub/res/img/btn-radio-active.png \
+  qt/decentrahub/res/img/ic-check-sync-off.png \
+  qt/decentrahub/res/img/img-empty-contacts.png \
+  qt/decentrahub/res/img/btn-radio-off.png \
+  qt/decentrahub/res/img/ic-check-sync.png \
+  qt/decentrahub/res/img/img-empty-dark-contacts.png \
+  qt/decentrahub/res/img/ic-contact-arrow-down.png \
+  qt/decentrahub/res/img/ic-contact-arrow-down-white.png \
+  qt/decentrahub/res/img/ic-check-sync.png \
+  qt/decentrahub/res/img/ic-check-faq.png \
+  qt/decentrahub/res/img/img-empty-dark-error.png \
+  qt/decentrahub/res/img/ic-add-label.png \
+  qt/decentrahub/res/img/ic-pending.png \
+  qt/decentrahub/res/img/ic-check-theme-dark.png \
+  qt/decentrahub/res/img/ic-nav-receive-active.png \
+  qt/decentrahub/res/img/img-empty-dark-masternode.png \
+  qt/decentrahub/res/img/ic-add-liliac.png \
+  qt/decentrahub/res/img/ic-check-theme-light.png \
+  qt/decentrahub/res/img/ic-nav-receive-hover.png \
+  qt/decentrahub/res/img/img-empty-dark-multisend.png \
+  qt/decentrahub/res/img/ic-add-purple.png \
+  qt/decentrahub/res/img/ic-check-white.png \
+  qt/decentrahub/res/img/ic-nav-receive.png \
+  qt/decentrahub/res/img/img-empty-dark-peers.png \
+  qt/decentrahub/res/img/ic-add.png \
+  qt/decentrahub/res/img/ic-check.png \
+  qt/decentrahub/res/img/ic-nav-send-active.png \
+  qt/decentrahub/res/img/img-empty-dark-staking-off.png \
+  qt/decentrahub/res/img/img-empty-dark-staking-on.png \
+  qt/decentrahub/res/img/ic-address-book-grey.png \
+  qt/decentrahub/res/img/ic-chevron-left.png \
+  qt/decentrahub/res/img/ic-nav-send-hover.png \
+  qt/decentrahub/res/img/img-empty-dark-transactions.png \
+  qt/decentrahub/res/img/ic-address-book-white.png \
+  qt/decentrahub/res/img/ic-chevron-right.png \
+  qt/decentrahub/res/img/ic-nav-send.png \
+  qt/decentrahub/res/img/img-empty-error.png \
+  qt/decentrahub/res/img/ic-address-book.png \
+  qt/decentrahub/res/img/ic-clear-liliac.png \
+  qt/decentrahub/res/img/ic-nav-settings-active.png \
+  qt/decentrahub/res/img/img-empty-masternode.png \
+  qt/decentrahub/res/img/ic-address-send-white.png \
+  qt/decentrahub/res/img/ic-clear-purple.png \
+  qt/decentrahub/res/img/ic-nav-settings-hover.png \
+  qt/decentrahub/res/img/img-empty-multisend.png \
+  qt/decentrahub/res/img/ic-address-send.png \
+  qt/decentrahub/res/img/ic-close-white.png \
+  qt/decentrahub/res/img/ic-nav-settings.png \
+  qt/decentrahub/res/img/img-empty-peers.png \
+  qt/decentrahub/res/img/ic-arrow-drop-down-white.png \
+  qt/decentrahub/res/img/ic-close.png \
+  qt/decentrahub/res/img/ic-radio-liliac-on.png \
+  qt/decentrahub/res/img/img-empty-staking-off.png \
+  qt/decentrahub/res/img/ic-arrow-drop-down.png \
+  qt/decentrahub/res/img/ic-coin-dcntr.png \
+  qt/decentrahub/res/img/ic-receive-off.png \
+  qt/decentrahub/res/img/img-empty-staking-on.png \
+  qt/decentrahub/res/img/ic-arrow-drop-up-white.png \
+  qt/decentrahub/res/img/ic-receive-on.png \
+  qt/decentrahub/res/img/img-empty-transactions.png \
+  qt/decentrahub/res/img/ic-arrow-drop-up.png \
+  qt/decentrahub/res/img/ic-received.png \
+  qt/decentrahub/res/img/img-logo-decentrahub.png \
+  qt/decentrahub/res/img/ic-arrow-drop-white-down.png \
+  qt/decentrahub/res/img/ic-combo-box.png \
+  qt/decentrahub/res/img/ic-send.png \
+  qt/decentrahub/res/img/img-logo-decentrahub@2x.png \
+  qt/decentrahub/res/img/ic-arrow-purple-down.png \
+  qt/decentrahub/res/img/ic-connect.png \
+  qt/decentrahub/res/img/ic-submenu-lock.png \
+  qt/decentrahub/res/img/img-logo-decentrahub@3x.png \
+  qt/decentrahub/res/img/img-logo-decentrahub.png \
+  qt/decentrahub/res/img/ic-arrow-right-white.png \
+  qt/decentrahub/res/img/ic-arrow-left-white.png \
+  qt/decentrahub/res/img/ic-arrow-left.png \
+  qt/decentrahub/res/img/ic-copy-liliac.png \
+  qt/decentrahub/res/img/ic-submenu-staking.png \
+  qt/decentrahub/res/img/img-nav-logo-decentrahub.png \
+  qt/decentrahub/res/img/ic-arrow-right.png \
+  qt/decentrahub/res/img/ic-copy.png \
+  qt/decentrahub/res/img/ic-copy-big.png \
+  qt/decentrahub/res/img/ic-copy-big-white.png \
+  qt/decentrahub/res/img/ic-submenu-unlock.png \
+  qt/decentrahub/res/img/img-nav-logo.png \
+  qt/decentrahub/res/img/ic-arrow-white-left.png \
+  qt/decentrahub/res/img/ic-exit.png \
+  qt/decentrahub/res/img/ic-switch-liliac-on.png \
+  qt/decentrahub/res/img/img-nav-logo.png \
+  qt/decentrahub/res/img/ic-arrow-white-right.png \
+  qt/decentrahub/res/img/ic-expand.png \
+  qt/decentrahub/res/img/ic-switch-off.png \
+  qt/decentrahub/res/img/img-qr-test-big.png \
+  qt/decentrahub/res/img/ic-check-active.png \
+  qt/decentrahub/res/img/ic-folder.png \
+  qt/decentrahub/res/img/ic-switch-on.png \
+  qt/decentrahub/res/img/img-qr-test.png \
+  qt/decentrahub/res/img/ic-check-box.png \
+  qt/decentrahub/res/img/ic-check-box-dark-active.png \
+  qt/decentrahub/res/img/ic-check-box-indeterminate.png \
+  qt/decentrahub/res/img/ic-check-box-liliac-indeterminate.png \
+  qt/decentrahub/res/img/ic-label-liliac.png \
+  qt/decentrahub/res/img/ic-transaction-warning.png \
+  qt/decentrahub/res/img/ic-transaction-mint.png \
+  qt/decentrahub/res/img/ic-transaction-mint-inactive.png \
+  qt/decentrahub/res/img/ic-check-cold-staking.png \
+  qt/decentrahub/res/img/ic-check-cold-staking-off.png \
+  qt/decentrahub/res/img/ic-check-cold-staking-enabled.png \
+  qt/decentrahub/res/img/dark/ic-transaction-cs-contract.png \
+  qt/decentrahub/res/img/dark/ic-transaction-cs-contract-inactive.png \
+  qt/decentrahub/res/img/img-qr.png \
+  qt/decentrahub/res/img/ic-check-connect-off.png \
+  qt/decentrahub/res/img/ic-check-tor-off.png \
+  qt/decentrahub/res/img/ic-check-tor.png \
+  qt/decentrahub/res/img/ic-label.png \
+  qt/decentrahub/res/img/ic-transaction-received.png \
+  qt/decentrahub/res/img/dark/ic-transaction-received.png \
+  qt/decentrahub/res/img/dark/ic-transaction-warning.png \
+  qt/decentrahub/res/img/dark/ic-transaction-mint.png \
+  qt/decentrahub/res/img/dark/ic-transaction-mint-inactive.png \
+  qt/decentrahub/res/img/ic-transaction-received-inactive.png \
+  qt/decentrahub/res/img/dark/ic-transaction-received-inactive.png \
+  qt/decentrahub/res/img/img-welcome-step1.png \
+  qt/decentrahub/res/img/ic-check-connect.png \
+  qt/decentrahub/res/img/ic-menu-hover.png \
+  qt/decentrahub/res/img/ic-transaction-sent.png \
+  qt/decentrahub/res/img/ic-transaction-sent-inactive.png \
+  qt/decentrahub/res/img/dark/ic-transaction-sent.png \
+  qt/decentrahub/res/img/dark/ic-transaction-sent-inactive.png \
+  qt/decentrahub/res/img/img-welcome-step2.png \
+  qt/decentrahub/res/img/ic-check-dark.png \
+  qt/decentrahub/res/img/ic-mint.png \
+  qt/decentrahub/res/img/ic-transaction-staked.png \
+  qt/decentrahub/res/img/ic-transaction-staked-inactive.png \
+  qt/decentrahub/res/img/dark/ic-transaction-staked.png \
+  qt/decentrahub/res/img/dark/ic-transaction-staked-inactive.png \
+  qt/decentrahub/res/img/img-welcome-step3.png \
+  qt/decentrahub/res/img/ic-check-liliac-on.png \
+  qt/decentrahub/res/img/ic-nav-address-active.png \
+  qt/decentrahub/res/img/ic-unlock-staking.png \
+  qt/decentrahub/res/img/img-welcome-step4.png \
+  qt/decentrahub/res/img/ic-check-locked-off.png \
+  qt/decentrahub/res/img/ic-nav-address-hover.png \
+  qt/decentrahub/res/img/ic-update-liliac.png \
+  qt/decentrahub/res/img/ic-arrow-drop-down-purple.png \
+  qt/decentrahub/res/img/ic-arrow-drop-up-purple.png \
+  qt/decentrahub/res/img/ic-check-liliac-indeterminate.png \
+  qt/decentrahub/res/img/ic-check-box-liliac-indeterminate.png \
+  qt/decentrahub/res/img/ic-transaction-stake-delegated.png \
+  qt/decentrahub/res/img/ic-transaction-stake-delegated-inactive.png \
+  qt/decentrahub/res/img/ic-transaction-stake-hot.png \
+  qt/decentrahub/res/img/ic-transaction-stake-hot-inactive.png \
+  qt/decentrahub/res/img/dark/ic-transaction-stake-hot.png \
+  qt/decentrahub/res/img/dark/ic-transaction-stake-hot-inactive.png \
+  qt/decentrahub/res/img/dark/ic-transaction-stake-delegated.png \
+  qt/decentrahub/res/img/dark/ic-transaction-stake-delegated-inactive.png \
+  qt/decentrahub/res/img/ic-transaction-cs-contract.png \
+  qt/decentrahub/res/img/ic-transaction-cs-contract-inactive.png \
+  qt/decentrahub/res/img/ic-check-box-indeterminate.png \
+  qt/decentrahub/res/img/ani-loading-dark.gif \
+  qt/decentrahub/res/img/ani-loading.gif
+
+
+
+BITCOIN_QT_BASE_CPP = \
+  qt/bantablemodel.cpp \
+  qt/bitcoinaddressvalidator.cpp \
+  qt/decentrahub/decentrahubgui.cpp \
+  qt/bitcoinunits.cpp \
+  qt/clientmodel.cpp \
+  qt/csvmodelwriter.cpp \
+  qt/guiutil.cpp \
+  qt/intro.cpp \
+  qt/networkstyle.cpp \
+  qt/notificator.cpp \
+  qt/optionsdialog.cpp \
+  qt/optionsmodel.cpp \
+  qt/peertablemodel.cpp \
+  qt/platformstyle.cpp \
+  qt/qvalidatedlineedit.cpp \
+  qt/qvaluecombobox.cpp \
+  qt/rpcconsole.cpp \
+  qt/trafficgraphwidget.cpp \
+  qt/utilitydialog.cpp
+
+BITCOIN_QT_WINDOWS_CPP = qt/winshutdownmonitor.cpp
+
+BITCOIN_QT_WALLET_CPP = \
+  qt/addressbookpage.cpp \
+  qt/addresstablemodel.cpp \
+  qt/askpassphrasedialog.cpp \
+  qt/coincontroldialog.cpp \
+  qt/coincontroltreewidget.cpp \
+  qt/editaddressdialog.cpp \
+  qt/openuridialog.cpp \
+  qt/paymentrequestplus.cpp \
+  qt/paymentserver.cpp \
+  qt/recentrequeststablemodel.cpp \
+  qt/transactiondesc.cpp \
+  qt/transactionfilterproxy.cpp \
+  qt/transactionrecord.cpp \
+  qt/transactiontablemodel.cpp \
+  qt/walletmodel.cpp \
+  qt/walletmodeltransaction.cpp \
+  qt/decentrahub/loadingdialog.cpp \
+  qt/decentrahub/pwidget.cpp \
+  qt/decentrahub/focuseddialog.cpp \
+  qt/decentrahub/guitransactionsutils.cpp \
+  qt/decentrahub/snackbar.cpp \
+  qt/decentrahub/navmenuwidget.cpp \
+  qt/decentrahub/lockunlock.cpp \
+  qt/decentrahub/receivedialog.cpp \
+  qt/decentrahub/furabstractlistitemdelegate.cpp \
+  qt/decentrahub/txviewholder.cpp \
+  qt/decentrahub/qtutils.cpp \
+  qt/decentrahub/expandablebutton.cpp \
+  qt/decentrahub/topbar.cpp \
+  qt/decentrahub/txrow.cpp \
+  qt/decentrahub/addressholder.cpp \
+  qt/decentrahub/addressfilterproxymodel.cpp \
+  qt/decentrahub/dashboardwidget.cpp \
+  qt/decentrahub/addresslabelrow.cpp \
+  qt/decentrahub/contactdropdownrow.cpp \
+  qt/decentrahub/contactsdropdown.cpp \
+  qt/decentrahub/optionbutton.cpp \
+  qt/decentrahub/mninfodialog.cpp \
+  qt/decentrahub/coldstakingmodel.cpp \
+  qt/decentrahub/mnmodel.cpp \
+  qt/decentrahub/masternodewizarddialog.cpp \
+  qt/decentrahub/mnrow.cpp \
+  qt/decentrahub/masternodeswidget.cpp \
+  qt/decentrahub/myaddressrow.cpp \
+  qt/decentrahub/csrow.cpp \
+  qt/decentrahub/sendchangeaddressdialog.cpp \
+  qt/decentrahub/sendconfirmdialog.cpp \
+  qt/decentrahub/sendcustomfeedialog.cpp \
+  qt/decentrahub/sendchangeaddressdialog.cpp \
+  qt/decentrahub/sendmultirow.cpp \
+  qt/decentrahub/send.cpp \
+  qt/decentrahub/addnewaddressdialog.cpp \
+  qt/decentrahub/addnewcontactdialog.cpp \
+  qt/decentrahub/requestdialog.cpp \
+  qt/decentrahub/receivewidget.cpp \
+  qt/decentrahub/tooltipmenu.cpp \
+  qt/decentrahub/addresseswidget.cpp \
+  qt/decentrahub/defaultdialog.cpp \
+  qt/decentrahub/coldstakingwidget.cpp \
+  qt/decentrahub/settings/settingsbackupwallet.cpp \
+  qt/decentrahub/settings/settingsexportcsv.cpp \
+  qt/decentrahub/settings/settingsbittoolwidget.cpp \
+  qt/decentrahub/settings/settingsconsolewidget.cpp \
+  qt/decentrahub/settings/settingsdisplayoptionswidget.cpp \
+  qt/decentrahub/settings/settingsfaqwidget.cpp \
+  qt/decentrahub/settings/settingsinformationwidget.cpp \
+  qt/decentrahub/settings/settingsmainoptionswidget.cpp \
+  qt/decentrahub/settings/settingsmultisenddialog.cpp \
+  qt/decentrahub/settings/settingsmultisendwidget.cpp \
+  qt/decentrahub/settings/settingssignmessagewidgets.cpp \
+  qt/decentrahub/settings/settingswalletoptionswidget.cpp \
+  qt/decentrahub/settings/settingswalletrepairwidget.cpp \
+  qt/decentrahub/settings/settingswidget.cpp \
+  qt/decentrahub/welcomecontentwidget.cpp \
+  qt/decentrahub/splash.cpp
+
+
+BITCOIN_QT_CPP = $(BITCOIN_QT_BASE_CPP)
+if TARGET_WINDOWS
+BITCOIN_QT_CPP += $(BITCOIN_QT_WINDOWS_CPP)
+endif
+if ENABLE_WALLET
+BITCOIN_QT_CPP += $(BITCOIN_QT_WALLET_CPP)
+endif
+
+RES_IMAGES = \
+  qt/res/images/about.png
+
+RES_CSS = \
+  qt/res/css/default.css \
+  qt/decentrahub/res/css/style_dark.css \
+  qt/decentrahub/res/css/style_light.css
+
+BITCOIN_RC = qt/res/decentrahub-qt-res.rc
+
+BITCOIN_QT_INCLUDES = -I$(builddir)/qt -I$(srcdir)/qt -I$(srcdir)/qt/forms \
+  -I$(builddir)/qt/forms -DQT_NO_KEYWORDS
+
+qt_libbitcoinqt_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+  $(QT_INCLUDES) $(QT_DBUS_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS) $(SVG_CFLAGS) $(CHARTS_CFLAGS)
+qt_libbitcoinqt_a_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+qt_libbitcoinqt_a_OBJCXXFLAGS = $(AM_OBJCXXFLAGS) $(QT_PIE_FLAGS)
+
+qt_libbitcoinqt_a_SOURCES = $(BITCOIN_QT_CPP) $(BITCOIN_QT_H) $(QT_FORMS_UI) \
+  $(QT_QRC) $(QT_QRC_LOCALE) $(QT_TS) $(PROTOBUF_PROTO) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS)
+
+nodist_qt_libbitcoinqt_a_SOURCES = $(QT_MOC_CPP) $(QT_MOC) $(PROTOBUF_CC) \
+  $(PROTOBUF_H) $(QT_QRC_CPP) $(QT_QRC_LOCALE_CPP)
+
+# forms/foo.h -> forms/ui_foo.h
+QT_FORMS_H=$(join $(dir $(QT_FORMS_UI)),$(addprefix ui_, $(notdir $(QT_FORMS_UI:.ui=.h))))
+
+# Most files will depend on the forms and moc files as includes. Generate them
+# before anything else.
+$(QT_MOC): $(QT_FORMS_H)
+$(qt_libbitcoinqt_a_OBJECTS) $(qt_decentrahub_qt_OBJECTS) : | $(QT_MOC)
+
+#Generating these with a half-written protobuf header leads to wacky results.
+#This makes sure it's done.
+$(QT_MOC): $(PROTOBUF_H)
+$(QT_MOC_CPP): $(PROTOBUF_H)
+
+# decentrahub-qt binary #
+qt_decentrahub_qt_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+  $(QT_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS) $(SVG_CFLAGS) $(CHARTS_CFLAGS)
+qt_decentrahub_qt_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+
+qt_decentrahub_qt_SOURCES = qt/decentrahub.cpp
+if TARGET_DARWIN
+  qt_decentrahub_qt_SOURCES += $(BITCOIN_MM)
+endif
+if TARGET_WINDOWS
+  qt_decentrahub_qt_SOURCES += $(BITCOIN_RC)
+endif
+qt_decentrahub_qt_LDADD = qt/libbitcoinqt.a $(LIBBITCOIN_SERVER)
+if ENABLE_WALLET
+qt_decentrahub_qt_LDADD += $(LIBBITCOIN_UTIL) $(LIBBITCOIN_WALLET)
+endif
+if ENABLE_ZMQ
+qt_decentrahub_qt_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
+endif
+qt_decentrahub_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) $(LIBUNIVALUE) $(LIBLEVELDB) $(LIBLEVELDB_SSE42) $(LIBMEMENV) \
+  $(BOOST_LIBS) $(QT_LIBS) $(QT_DBUS_LIBS) $(QR_LIBS) $(PROTOBUF_LIBS) $(SVG_LIBS) $(CHARTS_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(LIBSECP256K1) \
+  $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
+qt_decentrahub_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+qt_decentrahub_qt_LIBTOOLFLAGS = $(AM_LIBTOOLFLAGS) --tag CXX
+
+#locale/foo.ts -> locale/foo.qm
+QT_QM=$(QT_TS:.ts=.qm)
+
+SECONDARY: $(QT_QM)
+
+$(srcdir)/qt/decentrahubstrings.cpp: $(libbitcoin_server_a_SOURCES) $(libbitcoin_wallet_a_SOURCES) $(libbitcoin_common_a_SOURCES) $(libbitcoin_zmq_a_SOURCES) $(libbitcoin_util_a_SOURCES)
+	@test -n $(XGETTEXT) || echo "xgettext is required for updating translations"
+	$(AM_V_GEN) cd $(srcdir); XGETTEXT=$(XGETTEXT) PACKAGE_NAME="$(PACKAGE_NAME)" $(PYTHON) ../share/qt/extract_strings_qt.py $^
+
+translate: $(srcdir)/qt/decentrahubstrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(BITCOIN_QT_BASE_CPP) qt/decentrahub.cpp $(BITCOIN_QT_WINDOWS_CPP) $(BITCOIN_QT_WALLET_CPP) $(BITCOIN_QT_H) $(BITCOIN_MM)
+	@test -n $(LUPDATE) || echo "lupdate is required for updating translations"
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts $(srcdir)/qt/locale/decentrahub_en.ts
+
+$(QT_QRC_LOCALE_CPP): $(QT_QRC_LOCALE) $(QT_QM)
+	@test -f $(RCC)
+	@cp -f $< $(@D)/temp_$(<F)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name decentrahub_locale $(@D)/temp_$(<F) | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+	@rm $(@D)/temp_$(<F)
+
+$(QT_QRC_CPP): $(QT_QRC) $(QT_FORMS_H) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS) $(PROTOBUF_H)
+	@test -f $(RCC)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name decentrahub $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+CLEAN_QT = $(nodist_qt_libbitcoinqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno qt/temp_decentrahub_locale.qrc
+
+CLEANFILES += $(CLEAN_QT)
+
+decentrahub_qt_clean: FORCE
+	rm -f $(CLEAN_QT) $(qt_libbitcoinqt_a_OBJECTS) $(qt_decentrahub_qt_OBJECTS) qt/decentrahub-qt$(EXEEXT) $(LIBBITCOINQT)
+
+decentrahub_qt : qt/decentrahub-qt$(EXEEXT)
+
+ui_%.h: %.ui
+	@test -f $(UIC)
+	@$(MKDIR_P) $(@D)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(UIC) -o $@ $< || (echo "Error creating $@"; false)
+
+%.moc: %.cpp
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(MOC) $(DEFAULT_INCLUDES) $(QT_INCLUDES) $(MOC_DEFS) $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+moc_%.cpp: %.h
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(MOC) $(DEFAULT_INCLUDES) $(QT_INCLUDES) $(MOC_DEFS) $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+%.qm: %.ts
+	@test -f $(LRELEASE)
+	@$(MKDIR_P) $(@D)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LRELEASE) -silent $< -qm $@

@@ -1,0 +1,3 @@
+usr/local/bin/decentrahubd usr/bin
+usr/local/bin/decentrahub-cli usr/bin
+debian/examples/decentrahub.conf etc/decentrahub

@@ -1,0 +1,8 @@
+/usr/bin/decentrahub-cli		--	gen_context(system_u:object_r:decentrahub_exec_t,s0)
+/usr/sbin/decentrahubd		--	gen_context(system_u:object_r:decentrahub_exec_t,s0)
+/usr/lib(64)?/decentrahub/decentrahubd		--	gen_context(system_u:object_r:decentrahub_exec_t,s0)
+
+/etc/decentrahub(/.*)?		gen_context(system_u:object_r:decentrahub_conf_t,s0)
+/var/lib/decentrahub(/.*)?		gen_context(system_u:object_r:decentrahub_var_lib_t,s0)
+
+(/var)?/run/decentrahubd(/.*)?   gen_context(system_u:object_r:decentrahub_var_run_t,s0)

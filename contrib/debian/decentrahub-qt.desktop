@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=Decentrahub Coin
+Comment=Decentrahub P2P Cryptocurrency
+Comment[fr]=Decentrahub, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Decentrahub, eşten eşe kriptografik sanal para birimi
+Exec=decentrahub-qt %u
+Terminal=false
+Type=Application
+Icon=decentrahub128
+MimeType=x-scheme-handler/decentrahub;
+Categories=Office;Finance;
+StartupWMClass=Decentrahub-qt

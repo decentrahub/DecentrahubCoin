@@ -1,0 +1,6 @@
+usr/local/bin/decentrahub-qt usr/bin
+share/pixmaps/decentrahub32.xpm usr/share/pixmaps
+share/pixmaps/decentrahub16.xpm usr/share/pixmaps
+share/pixmaps/decentrahub128.png usr/share/pixmaps
+debian/decentrahub-qt.desktop usr/share/applications
+debian/decentrahub-qt.protocol usr/share/kde4/services/
